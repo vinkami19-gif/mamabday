@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday Mama!</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; font-family: monospace; }
+body, html { width:100%; height:100%; overflow:hidden; background: #ffe0f0; position: relative; }
+
+/* Background elements */
+#bg { position:absolute; top:0; left:0; width:100%; height:100%; z-index:-2; overflow:hidden; }
+.cloud, .tree, .grass, .pixel-family { position:absolute; image-rendering: pixelated; }
+
+/* Pixel UI buttons with pixel shadow */
+.pixel-button {
+    display:inline-block; padding: 15px 30px; margin:10px;
+    background: #ff99cc;
+    border: 4px solid #ff66aa;
+    color:#fff; font-weight:bold; cursor:pointer;
+    text-align:center; image-rendering: pixelated;
+    box-shadow: 4px 4px 0 #cc6699;
+    transition: filter 0.1s, transform 0.1s;
+}
+.pixel-button:active { 
+    filter: brightness(70%); 
+    transform: translate(2px, 2px);
+}
+
+/* Panels with pixel frame and inner shadow */
+.pixel-panel {
+    width: 95%; max-width:600px; margin: 20px auto;
+    background: url('images/pixel-texture.png');
+    padding: 15px; 
+    border:4px solid #ff66aa;
+    box-shadow: inset 2px 2px 0 #cc6699;
+    image-rendering: pixelated; 
+    display:none; text-align:center;
+    overflow-y:auto;
+}
+
+/* Image gallery with grid layout */
+.pixel-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap:10px; justify-items:center;
+}
+.pixel-gallery img {
+    width:80px; height:80px; object-fit:cover; cursor:pointer;
+    image-rendering: pixelated;
+}
+
+/* Enlarged view overlay */
+#overlay {
+    display:none; position:fixed; top:0; left:0; width:100%; height:100%;
+    background: rgba(0,0,0,0.7); z-index:999; justify-content:center; align-items:center;
+}
+#overlay img { max-width:90%; max-height:90%; image-rendering: pixelated; }
+#overlay button {
+    position:absolute; top:20px; right:20px; padding:10px 15px;
+    cursor:pointer; font-weight:bold; background:pink; border:4px solid #ff99cc;
+    image-rendering: pixelated;
+}
+
+/* Text message */
+.message { color:#fff; font-size:16px; line-height:1.4; text-align:center; }
+
+/* Menu */
+#menu { text-align:center; padding-top:50px; position:relative; }
+
+/* Pixel family sprite in menu */
+.pixel-family { bottom:10px; left:20px; width:64px; height:64px; z-index:-1; }
+
+</style>
+</head>
+<body>
+
+<!-- Background placeholders -->
+<div id="bg">
+    <img src="images/cloud.png" class="cloud" style="top:30px; left:50px;">
+    <img src="images/tree.png" class="tree" style="bottom:10px; left:200px;">
+    <img src="images/grass.png" class="grass" style="bottom:0; left:0;">
+</div>
+
+<!-- Menu buttons -->
+<div id="menu">
+    <div class="pixel-button" onclick="showSection('momsGlow')">Mom’s Glow ✨</div>
+    <div class="pixel-button" onclick="showSection('bestTeam')">Best Team 💖🛡️</div>
+    <div class="pixel-button" onclick="showSection('heartMessage')">My Heart for You 💖❤️</div>
+    <!-- Small pixel family sprite -->
+    <img src="images/pixel-family1.png" class="pixel-family">
+</div>
+
+<!-- Mom's Glow gallery -->
+<div id="momsGlow" class="pixel-panel">
+    <h2>Mom’s Glow</h2>
+    <div class="pixel-gallery">
+        <img src="images/mom1.png" onclick="enlarge(this)">
+        <img src="images/mom2.png" onclick="enlarge(this)">
+        <img src="images/mom3.png" onclick="enlarge(this)">
+        <img src="images/mom4.png" onclick="enlarge(this)">
+    </div>
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- Best Team gallery -->
+<div id="bestTeam" class="pixel-panel">
+    <h2>Best Team</h2>
+    <div class="pixel-gallery">
+        <img src="images/family1.png" onclick="enlarge(this)">
+        <img src="images/family2.png" onclick="enlarge(this)">
+        <img src="images/family3.png" onclick="enlarge(this)">
+        <img src="images/family4.png" onclick="enlarge(this)">
+        <img src="images/family5.png" onclick="enlarge(this)">
+        <img src="images/family6.png" onclick="enlarge(this)">
+        <img src="images/family7.png" onclick="enlarge(this)">
+        <img src="images/family8.png" onclick="enlarge(this)">
+        <img src="images/family9.png" onclick="enlarge(this)">
+        <img src="images/family10.png" onclick="enlarge(this)">
+        <img src="images/family11.png" onclick="enlarge(this)">
+        <img src="images/family12.png" onclick="enlarge(this)">
+        <img src="images/family13.png" onclick="enlarge(this)">
+        <img src="images/family14.png" onclick="enlarge(this)">
+    </div>
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- Heart Message -->
+<div id="heartMessage" class="pixel-panel">
+    <h2>My Heart for You</h2>
+    <div class="message">
+        I just want you to know how much I love you. Thank you for all the sacrifices you’ve made for me and my sisters,  
+        you’ve given us so much, even when it wasn’t easy.  
+        I’m sorry for the times I’ve been stubborn or difficult,  
+        but I hope you know that no matter what, you will always be loved.  
+        You are the heart of our family, and I am so grateful for you every single day.  
+        Wishing you a day filled with love, happiness, and all the things that make you smile.  
+        You deserve the world, Mama.
+    </div>
+    <button onclick="goBack()">Back</button>
+</div>
+
+<!-- Enlarged overlay -->
+<div id="overlay">
+    <img id="overlayImg">
+    <button onclick="closeOverlay()">X</button>
+</div>
+
+<!-- Background music and click sound -->
+<audio id="bgMusic" src="music/bg-music.mp3" loop autoplay></audio>
+<audio id="clickSound" src="music/click.mp3"></audio>
+
+<script>
+function showSection(id){
+    document.getElementById('menu').style.display='none';
+    document.querySelectorAll('.pixel-panel').forEach(p=>p.style.display='none');
+    document.getElementById(id).style.display='block';
+    document.getElementById('clickSound').play();
+}
+function goBack(){
+    document.querySelectorAll('.pixel-panel').forEach(p=>p.style.display='none');
+    document.getElementById('menu').style.display='block';
+    document.getElementById('clickSound').play();
+}
+function enlarge(img){
+    document.getElementById('overlayImg').src = img.src;
+    document.getElementById('overlay').style.display='flex';
+    document.getElementById('clickSound').play();
+}
+function closeOverlay(){
+    document.getElementById('overlay').style.display='none';
+    document.getElementById('clickSound').play();
+}
+
+/* Background animations */
+let cloud=document.querySelector('.cloud');
+let tree=document.querySelector('.tree');
+let grass=document.querySelector('.grass');
+let cloudPos=50;
+
+setInterval(()=>{
+    cloudPos+=0.2; 
+    if(cloudPos>window.innerWidth) cloudPos=-150;
+    cloud.style.left=cloudPos+'px';
+    
+    tree.style.transform = `translateY(${Math.sin(Date.now()/1000)*5}px)`;
+    grass.style.transform = `translateX(${Math.sin(Date.now()/500)*5}px)`;
+},30);
+</script>
+
+</body>
+</html>
