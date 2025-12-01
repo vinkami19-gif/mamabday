@@ -85,23 +85,6 @@ p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px;}
 .float:nth-child(7){left:80%; animation-duration:8.3s; width:28px; height:28px;}
 .float:nth-child(8){left:90%; animation-duration:7s; width:34px; height:34px;}
 
-/* Background decorations (clouds, tree, grass) */
-.bg-deco {
-    position:absolute;
-    z-index:0;
-}
-.cloud { width:120px; height:auto; top:20px; animation: drift 20s linear infinite; }
-.cloud:nth-child(2) { left:150px; animation-duration:25s; }
-.cloud:nth-child(3) { left:300px; animation-duration:22s; }
-
-@keyframes drift {
-    0% { transform:translateX(-200px); }
-    100% { transform:translateX(100vw); }
-}
-
-.tree { width:100px; height:auto; bottom:50px; left:10%; }
-.grass { width:200px; height:auto; bottom:0; left:50%; transform:translateX(-50%); }
-
 /* Sections */
 .section {
     display:none;
@@ -126,12 +109,12 @@ p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px;}
 /* Exit button */
 .exit-btn {
     position:absolute;
-    top:20px;
-    right:20px;
+    top:20px; 
+    right:20px; 
     background:#ff8ab3;
     color:white;
     border:none;
-    font-size:40px;
+    font-size:40px; 
     font-weight:bold;
     width:50px;
     height:50px;
@@ -174,12 +157,6 @@ p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px;}
 <h1>🎀 Happy Birthday, Mama! 🎀</h1>
 
 <div class="menu-container">
-    <!-- Background decorations -->
-    <img src="images/cloud.png.png" class="bg-deco cloud">
-    <img src="images/cloud.png.png" class="bg-deco cloud">
-    <img src="images/tree.png.png" class="bg-deco tree">
-    <img src="images/grass.png.png" class="bg-deco grass">
-
     <div class="menu">
         <button onclick="playClick(); showSection('soloPics')">📸 Mama’s Glow</button>
         <button onclick="playClick(); showSection('familyPics')">👨‍👩‍👧‍👧 The Best Team</button>
@@ -194,8 +171,8 @@ p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px;}
     <h2>Mama’s Glow ✨</h2>
     <img src="images/mom1.png.jpg">
     <img src="images/mom2.png.jpg">
-    <img src="images/mom3.png.jpg">
-    <img src="images/mom4.png.jpg">
+    <img src="images/mom3.jpg.jpg">
+    <img src="images/mom4.jpg.jpg">
 </div>
 
 <div id="familyPics" class="section">
@@ -205,16 +182,6 @@ p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px;}
     <img src="images/family2.jpg.jpg">
     <img src="images/family3.jpg.jpg">
     <img src="images/family4.jpg.jpg">
-    <img src="images/family5.jpg.jpg">
-    <img src="images/family6.jpg.jpg">
-    <img src="images/family7.jpg.jpg">
-    <img src="images/family8.jpg.jpg">
-    <img src="images/family9.jpg.jpg">
-    <img src="images/family10.jpg.jpg">
-    <img src="images/family11.jpg.jpg">
-    <img src="images/family12.jpg.jpg">
-    <img src="images/family13.jpg.jpg">
-    <img src="images/family14.jpg.jpg">
 </div>
 
 <div id="letter" class="section">
