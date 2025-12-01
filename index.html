@@ -6,185 +6,168 @@
 <title>Happy Birthday, Mama 💖</title>
 <style>
 body {
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
     font-family: 'Poppins', sans-serif;
-    background: #ffe6f2;
-}
-
-/* Background environment layers */
-#environment {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    overflow: hidden;
-    z-index: 0;
-}
-
-/* Grass tiling */
-.grass {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    z-index: 2;
-}
-.grass img {
-    height: 100px;
-    margin-right: 4px; /* adjust spacing respecting transparency */
-}
-
-/* Clouds */
-.cloud {
-    position: absolute;
-    top: 30px;
-    width: 150px;
-    height: auto;
-    animation: cloudMove linear infinite;
-    opacity: 0.8;
-    z-index: 1;
-}
-.cloud:nth-child(1) { animation-duration: 60s; top: 20px; left: -200px; }
-.cloud:nth-child(2) { animation-duration: 80s; top: 60px; left: -300px; }
-
-@keyframes cloudMove {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(120vw); }
-}
-
-/* Tree */
-.tree {
-    position: absolute;
-    bottom: 100px;
-    left: 20px;
-    width: 200px;
-    height: auto;
-    z-index: 3;
-}
-
-/* Pixel family */
-.pixel-family {
-    position: absolute;
-    bottom: 100px; /* feet covered by grass */
-    right: 50px;
-    width: 180px;
-    height: auto;
-    z-index: 4;
+    margin:0;
+    padding:0;
+    overflow-x:hidden;
+    background:#ffe6f2;
+    position:relative;
 }
 
 /* Menu */
 .menu-container {
     position: relative;
-    padding-top: 220px;
-    text-align: center;
-    z-index: 5;
+    padding-top:220px;
+    z-index:5;
+    text-align:center;
 }
 .menu {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 0 auto;
-    width: 90%;
-    max-width: 380px;
+    display:flex;
+    flex-direction:column;
+    gap:15px;
+    margin:10px auto 40px;
+    width:90%;
+    max-width:380px;
+    position:relative;
+    z-index:5;
 }
 .menu button {
     background: url('images/pixel-texture-button.png.png') repeat;
-    border: none;
-    border-radius: 16px;
-    padding: 14px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    border:none;
+    padding:14px;
+    border-radius:16px;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
 }
 .menu button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 8px #ffb5d9;
+    transform:scale(1.05);
+    box-shadow:0 0 8px #ffb5d9;
 }
 
-/* Section overlay */
+/* Pixel family */
+.pixel-family {
+    position:absolute;
+    bottom:0;
+    right:5%;
+    width:150px;
+    height:auto;
+    z-index:3;
+}
+
+/* Tree */
+.tree {
+    position:absolute;
+    bottom:0;
+    left:5%;
+    width:180px;
+    height:auto;
+    z-index:2;
+}
+
+/* Clouds */
+.cloud {
+    position:absolute;
+    width:120px;
+    height:auto;
+    z-index:1;
+}
+.cloud1 { top:5%; left:10%; animation:cloudMove 60s linear infinite; }
+.cloud2 { top:10%; left:50%; animation:cloudMove 80s linear infinite; }
+
+/* Grass Rows */
+.grass-row {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    display:flex;
+    justify-content:flex-start;
+    z-index:4;
+}
+.grass-row img {
+    height:auto;
+}
+
+/* Stack 3 rows of grass with slightly bigger scale each row */
+.row1 img { height:40px; animation:sway 4s ease-in-out infinite alternate; }
+.row2 img { height:50px; animation:sway 5s ease-in-out infinite alternate; animation-delay:0.5s; }
+.row3 img { height:60px; animation:sway 6s ease-in-out infinite alternate; animation-delay:1s; }
+
+/* Sections */
 .section {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5);
+    display:none;
+    position:fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    padding:20px;
+    overflow-y:auto;
+    z-index:6;
+    background: rgba(255,230,242,0.95);
     backdrop-filter: blur(4px);
-    overflow-y: auto;
-    z-index: 10;
-    padding: 20px;
-    box-sizing: border-box;
 }
 
-/* Section content frame */
-.section-content {
-    background: url('images/pixel-texture.png.png') repeat;
-    padding: 20px;
-    border-radius: 16px;
-    max-width: 90%;
-    margin: 50px auto;
+/* Section images */
+.section img {
+    width:100%;
+    max-width:400px;
+    border-radius:16px;
+    margin:10px auto;
+    cursor:pointer;
 }
 
 /* Exit button */
 .exit-btn {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    width: 50px;
-    height: 50px;
-    background: url('exit.png') center/cover no-repeat;
-    border: none;
-    cursor: pointer;
-    z-index: 20;
-}
-
-/* Gallery/grid */
-.gallery {
-    display: grid;
-    grid-template-columns: repeat(auto-fill,minmax(150px,1fr));
-    gap: 10px;
-}
-.gallery img {
-    width: 100%;
-    border-radius: 8px;
-    cursor: pointer;
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    background:url('exit.png') no-repeat center/contain;
+    border:none;
+    cursor:pointer;
+    z-index:7;
 }
 
 /* Floating hearts/cakes */
 .float {
     position: fixed;
-    width: 40px;
-    height: 40px;
-    animation: floatUp linear infinite;
-    z-index: 5;
+    bottom: -50px;
+    animation-name: floatUp;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    opacity:0.8;
+    z-index:2;
 }
 @keyframes floatUp {
-    0% { transform: translateY(0); opacity:0.6; }
-    50% { opacity:1; }
-    100% { transform: translateY(-120vh); opacity:0; }
+    0% { transform:translateY(0) scale(0.8); opacity:0.6;}
+    50%{opacity:1;}
+    100% { transform:translateY(-120vh) scale(1.2); opacity:0;}
 }
-.float:nth-child(1){ left:5%; animation-duration:7s; }
-.float:nth-child(2){ left:15%; animation-duration:6s; }
-.float:nth-child(3){ left:25%; animation-duration:8s; }
-.float:nth-child(4){ left:40%; animation-duration:5.5s; }
-.float:nth-child(5){ left:55%; animation-duration:7.2s; }
-.float:nth-child(6){ left:70%; animation-duration:6.5s; }
-.float:nth-child(7){ left:80%; animation-duration:8.3s; }
-.float:nth-child(8){ left:90%; animation-duration:7s; }
+
+/* Grass sway */
+@keyframes sway {
+    0%   { transform: rotate(0deg); }
+    50%  { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
+}
+
+/* Cloud movement */
+@keyframes cloudMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-200%); }
+}
 
 /* Mobile responsiveness */
-@media screen and (max-width:600px){
-    .tree { width: 120px; bottom: 60px; left: 10px; }
-    .pixel-family { width: 120px; bottom: 60px; right: 20px; }
-    .menu button { font-size: 16px; padding: 12px; }
-    .section-content { padding: 15px; margin: 30px auto; }
-    .grass img { height: 60px; margin-right: 3px; }
+@media screen and (max-width:400px){
+    .tree{ width:120px; }
+    .pixel-family{ width:100px; }
+    .row1 img{ height:30px; }
+    .row2 img{ height:40px; }
+    .row3 img{ height:50px; }
+    .menu button{ font-size:16px; padding:12px; }
+    .section img{ max-width:90%; }
 }
 </style>
 </head>
@@ -195,96 +178,87 @@ body {
     <source src="music/bg-music.mp3.m4a" type="audio/mpeg">
 </audio>
 
-<!-- Environment layers -->
-<div id="environment">
-    <!-- Clouds -->
-    <img src="images/cloud.png.png" class="cloud">
-    <img src="images/cloud.png.png" class="cloud">
-    <!-- Tree -->
-    <img src="images/tree.png.png" class="tree">
-    <!-- Grass -->
-    <div class="grass">
-        <img src="images/grass.png.png">
-        <img src="images/grass.png.png">
-        <img src="images/grass.png.png">
-        <img src="images/grass.png.png">
-    </div>
-    <!-- Pixel family -->
-    <img src="images/pixel-family1.png.png" class="pixel-family">
-</div>
-
 <!-- Floating hearts/cakes -->
 <img src="heart.png" class="float">
 <img src="cake.png" class="float">
 <img src="heart.png" class="float">
 <img src="cake.png" class="float">
-<img src="heart.png" class="float">
-<img src="cake.png" class="float">
-<img src="heart.png" class="float">
-<img src="cake.png" class="float">
 
-<!-- Title -->
 <h1>🎀 Happy Birthday, Mama! 🎀</h1>
 
-<!-- Menu -->
 <div class="menu-container">
     <div class="menu">
         <button onclick="playClick(); showSection('soloPics')">📸 Mama’s Glow</button>
         <button onclick="playClick(); showSection('familyPics')">👨‍👩‍👧‍👧 The Best Team</button>
         <button onclick="playClick(); showSection('letter')">💌 My Heart for You</button>
     </div>
+    <img src="images/pixel-family1.png.png" class="pixel-family">
+</div>
+
+<!-- Tree -->
+<img src="images/tree.png.png" class="tree">
+
+<!-- Grass rows -->
+<div class="grass-row row1">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
+</div>
+<div class="grass-row row2">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
+</div>
+<div class="grass-row row3">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
+    <img src="images/grass.png.png" alt="">
 </div>
 
 <!-- Sections -->
 <div id="soloPics" class="section">
-    <div class="section-content">
-        <button class="exit-btn" onclick="playClick(); backToMenu()"></button>
-        <h2>Mama’s Glow ✨</h2>
-        <div class="gallery">
-            <img src="images/mom1.png.jpg">
-            <img src="images/mom2.png.jpg">
-            <img src="images/mom3.png.jpg">
-            <img src="images/mom4.png.jpg">
-        </div>
+    <button class="exit-btn" onclick="backToMenu()"></button>
+    <h2>Mama’s Glow ✨</h2>
+    <div class="gallery">
+        <img src="images/mom1.png.jpg">
+        <img src="images/mom2.png.jpg">
+        <img src="images/mom3.png.jpg">
+        <img src="images/mom4.png.jpg">
     </div>
 </div>
 
 <div id="familyPics" class="section">
-    <div class="section-content">
-        <button class="exit-btn" onclick="playClick(); backToMenu()"></button>
-        <h2>The Best Team 💖</h2>
-        <div class="gallery">
-            <img src="images/family1.jpg.jpg">
-            <img src="images/family2.jpg.jpg">
-            <img src="images/family3.jpg.jpg">
-            <img src="images/family4.jpg.jpg">
-            <img src="images/family5.jpg.jpg">
-            <img src="images/family6.jpg.jpg">
-            <img src="images/family7.jpg.jpg">
-            <img src="images/family8.jpg.jpg">
-            <img src="images/family9.jpg.jpg">
-            <img src="images/family10.jpg.jpg">
-            <img src="images/family11.jpg.jpg">
-            <img src="images/family12.jpg.jpg">
-            <img src="images/family13.jpg.jpg">
-            <img src="images/family14.jpg.jpg">
-        </div>
+    <button class="exit-btn" onclick="backToMenu()"></button>
+    <h2>The Best Team 💖</h2>
+    <div class="gallery">
+        <img src="images/family1.jpg.jpg">
+        <img src="images/family2.jpg.jpg">
+        <img src="images/family3.jpg.jpg">
+        <img src="images/family4.jpg.jpg">
+        <img src="images/family5.jpg.jpg">
+        <img src="images/family6.jpg.jpg">
+        <img src="images/family7.jpg.jpg">
+        <img src="images/family8.jpg.jpg">
+        <img src="images/family9.jpg.jpg">
+        <img src="images/family10.jpg.jpg">
+        <img src="images/family11.jpg.jpg">
+        <img src="images/family12.jpg.jpg">
+        <img src="images/family13.jpg.jpg">
+        <img src="images/family14.jpg.jpg">
     </div>
 </div>
 
 <div id="letter" class="section">
-    <div class="section-content">
-        <button class="exit-btn" onclick="playClick(); backToMenu()"></button>
-        <h2>💌 My Heart for You</h2>
-        <p>
+    <button class="exit-btn" onclick="backToMenu()"></button>
+    <h2>💌 My Heart for You</h2>
+    <p>
         I just want you to know how much I love you. Thank you for all the sacrifices you’ve made for me and my sisters,<br>
         you’ve given us so much, even when it wasn’t easy.<br>
         I’m sorry for the times I’ve been stubborn or difficult,<br>
         but I hope you know that no matter what, you will always be loved.<br>
         You are the heart of our family, and I am so grateful for you every single day.<br>
         Wishing you a day filled with love, happiness, and all the things that make you smile. You deserve the world, Mama.
-        </p>
-    </div>
+    </p>
 </div>
 
 <!-- Click sound -->
