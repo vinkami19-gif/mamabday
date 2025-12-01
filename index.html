@@ -5,176 +5,149 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday, Mama 💖</title>
 <style>
-/* --------------------- Body --------------------- */
+/* ===== General ===== */
 body {
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
     font-family: 'Poppins', sans-serif;
-    overflow-x: hidden;
-    background: #ffe6f2;
-    position: relative;
+    background:#ffe6f2;
+    overflow-x:hidden;
+    position:relative;
+}
+h1 { text-align:center; color:#ff69b4; margin-top:20px; font-size:28px;}
+h2 { color:#ff5f9e; font-size:24px; margin:15px 0; text-align:center;}
+p { color:#ff4d8b; font-size:18px; line-height:1.5; padding:0 15px; text-align:center;}
+
+/* ===== Background Elements ===== */
+#grass-container {
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    z-index:1;
+}
+.grass-tile {
+    background:url('images/grass.png.png') repeat-x;
+    width:64px;
+    height:64px;
+    margin-right:2px; /* spacing respects transparency */
 }
 
-/* --------------------- Background Layers --------------------- */
-.bg-layer {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 0;
+#tree {
+    position:absolute;
+    bottom:64px; /* just above grass */
+    left:10%;
+    width:auto;
+    max-height:60vh;
+    z-index:2;
 }
 
-/* Tiled grass at bottom */
-.grass {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 100px;
-    background: url('images/grass.png.png') repeat-x;
-    background-size: auto 100px;
-    z-index: 2;
+#pixel-family {
+    position:absolute;
+    bottom:64px;
+    right:10%;
+    width:auto;
+    max-height:60vh;
+    z-index:2;
 }
 
-/* Static tree */
-.tree {
-    position: absolute;
-    bottom: 100px;
-    left: 15%;
-    width: 150px;
-    height: auto;
-    z-index: 3;
-}
-
-/* Pixel family */
-.pixel-family {
-    position: absolute;
-    bottom: 100px;
-    left: 40%;
-    width: 200px;
-    height: auto;
-    z-index: 4;
-}
-
-/* Floating clouds, hearts, cakes */
+/* ===== Floating ===== */
 .float {
-    position: absolute;
-    z-index: 1;
-    opacity: 0.8;
+    position:fixed;
+    animation: floatUp linear infinite;
+    opacity:0.8;
+    z-index:3;
 }
-
-@keyframes floatCloud {
-    0% { transform: translateY(0) translateX(0); }
-    50% { transform: translateY(-20px) translateX(10px); }
-    100% { transform: translateY(0) translateX(0); }
-}
-
 @keyframes floatUp {
-    0% { transform: translateY(0); opacity: 0.6;}
-    50% { opacity: 1; }
-    100% { transform: translateY(-120vh); opacity: 0; }
+    0% {transform:translateY(100vh) scale(0.8); opacity:0;}
+    50% {opacity:1;}
+    100% {transform:translateY(-50vh) scale(1.2); opacity:0;}
 }
+.float-heart { width:30px; height:30px; left:20%; animation-duration:7s;}
+.float-cake  { width:32px; height:32px; left:50%; animation-duration:6s;}
 
-/* --------------------- Header --------------------- */
-h1 {
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    margin-top: 20px;
-    font-size: 28px;
-    color: #ff69b4;
-}
-
-/* --------------------- Menu --------------------- */
+/* ===== Menu ===== */
 .menu-container {
-    position: relative;
-    z-index: 5;
-    text-align: center;
-    margin-top: 200px;
+    position:relative;
+    padding-top:220px;
+    z-index:4;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+.menu-button {
+    width:200px;
+    height:50px;
+    margin:10px 0;
+    background:url('images/pixel-texture-button.png.png') no-repeat center/cover;
+    border:none;
+    cursor:pointer;
+    font-weight:bold;
+    color:white;
+    font-size:18px;
+    text-shadow:1px 1px 2px #000;
+    transition: transform 0.2s;
+}
+.menu-button:hover {
+    transform:scale(1.05);
 }
 
-.menu {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
-
-.menu button {
-    background: url('images/pixel-texture-button.png.png') repeat;
-    background-size: cover;
-    border: none;
-    width: 140px;
-    height: 50px;
-    font-weight: bold;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.menu button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 8px #ffb5d9;
-}
-
-/* --------------------- Section Panels --------------------- */
+/* ===== Sections ===== */
 .section {
-    display: none;
-    position: fixed;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    width: 90%;
-    max-width: 500px;
-    height: 80%;
-    background: url('images/pixel-texture.png.png') repeat;
-    padding: 20px;
-    overflow-y: auto;
-    border-radius: 16px;
-    z-index: 10;
-    box-shadow: 0 0 15px rgba(0,0,0,0.3);
-}
-
-/* Section Images */
-.section img {
-    width: 100%;
-    border-radius: 12px;
-    margin: 10px 0;
-    cursor: pointer;
-    transition: transform 0.2s, box-shadow 0.2s;
-}
-.section img:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #ffb5d9;
-}
-
-/* Exit button */
-.exit-btn {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    width: 40px;
-    height: 40px;
-    background: url('exit.jpg') no-repeat center/cover;
-    border: none;
-    cursor: pointer;
-}
-
-/* Dark overlay when section opens */
-.overlay {
-    display: none;
-    position: fixed;
+    display:none;
+    position:fixed;
     top:0; left:0;
     width:100%;
     height:100%;
-    background: rgba(0,0,0,0.3);
-    z-index:9;
+    background: rgba(0,0,0,0.5); /* dark overlay */
+    backdrop-filter:blur(4px);
+    z-index:5;
+    overflow-y:auto;
+    padding:20px;
+}
+.section-content {
+    background:url('images/pixel-texture.png.png') repeat;
+    padding:15px;
+    border-radius:10px;
+    max-width:90%;
+    margin:50px auto;
 }
 
-/* --------------------- Responsive --------------------- */
-@media screen and (max-width: 500px) {
-    .menu button { width: 100px; height: 40px; font-size: 14px; }
-    .pixel-family { width: 120px; bottom: 80px; }
-    .tree { width: 100px; bottom: 80px; left: 10%; }
-    .section { max-width: 90%; height: 70%; }
+/* Gallery grid */
+.gallery {
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(120px,1fr));
+    gap:10px;
+    justify-items:center;
+}
+.gallery img {
+    width:100%;
+    border:4px solid #00000033; /* panel border */
+    border-image:url('images/pixel-texture.png.png') 30 stretch;
+    border-radius:6px;
+    cursor:pointer;
+}
+
+/* ===== Exit Button ===== */
+.exit-btn {
+    position:absolute;
+    top:20px;
+    right:20px;
+    width:50px;
+    height:50px;
+    background:url('exit.png') no-repeat center/cover;
+    border:none;
+    cursor:pointer;
+    z-index:6;
+}
+
+/* ===== Responsive ===== */
+@media screen and (max-width:600px){
+    #tree, #pixel-family { max-height:40vh; }
+    .menu-button { width:150px; height:40px; font-size:16px; }
+    .gallery { grid-template-columns:repeat(auto-fill,minmax(90px,1fr)); }
 }
 </style>
 </head>
@@ -184,96 +157,101 @@ h1 {
 <audio id="bgMusic" autoplay loop>
     <source src="music/bg-music.mp3.m4a" type="audio/mpeg">
 </audio>
-
-<!-- Click Sound -->
 <audio id="clickSound">
     <source src="music/click.mp3.mp3" type="audio/mpeg">
 </audio>
 
-<!-- Background layers -->
-<div class="bg-layer grass"></div>
-<img src="images/tree.png.png" class="tree">
-<img src="images/pixel-family1.png.png" class="pixel-family">
-
-<!-- Floating hearts and cakes -->
-<img src="heart.png" class="float" style="left:10%; top:50px; width:30px; animation:floatUp 8s linear infinite;">
-<img src="cake.png" class="float" style="left:30%; top:60px; width:30px; animation:floatUp 7s linear infinite;">
-<img src="heart.png" class="float" style="left:50%; top:40px; width:28px; animation:floatUp 6s linear infinite;">
-<img src="cake.png" class="float" style="left:70%; top:50px; width:30px; animation:floatUp 7.5s linear infinite;">
-
-<img src="images/cloud.png.png" class="float" style="left:5%; top:20px; width:80px; animation:floatCloud 12s ease-in-out infinite;">
-<img src="images/cloud.png.png" class="float" style="left:50%; top:50px; width:100px; animation:floatCloud 15s ease-in-out infinite;">
-
-<h1>🎀 Happy Birthday, Mama! 🎀</h1>
-
-<div class="menu-container">
-    <div class="menu">
-        <button onclick="playClick(); openSection('soloPics')">📸 Mama’s Glow</button>
-        <button onclick="playClick(); openSection('familyPics')">👨‍👩‍👧‍👧 The Best Team</button>
-        <button onclick="playClick(); openSection('letter')">💌 My Heart for You</button>
-    </div>
+<!-- Background Grass -->
+<div id="grass-container">
+    <div class="grass-tile"></div><div class="grass-tile"></div><div class="grass-tile"></div><div class="grass-tile"></div>
+    <div class="grass-tile"></div><div class="grass-tile"></div><div class="grass-tile"></div><div class="grass-tile"></div>
 </div>
 
-<div class="overlay" id="overlay"></div>
+<!-- Static Tree -->
+<img src="images/tree.png.png" id="tree">
+
+<!-- Pixel Family -->
+<img src="images/pixel-family1.png.png" id="pixel-family">
+
+<!-- Floating Objects -->
+<img src="heart.png" class="float float-heart">
+<img src="cake.png" class="float float-cake">
+
+<!-- Title -->
+<h1>🎀 Happy Birthday, Mama! 🎀</h1>
+
+<!-- Menu -->
+<div class="menu-container">
+    <button class="menu-button" onclick="playClick(); openSection('soloPics')">📸 Mama’s Glow</button>
+    <button class="menu-button" onclick="playClick(); openSection('familyPics')">👨‍👩‍👧‍👧 The Best Team</button>
+    <button class="menu-button" onclick="playClick(); openSection('letter')">💌 My Heart for You</button>
+</div>
 
 <!-- Sections -->
 <div id="soloPics" class="section">
     <button class="exit-btn" onclick="playClick(); closeSection('soloPics')"></button>
-    <h2>Mama’s Glow ✨</h2>
-    <img src="images/mom1.png.jpg">
-    <img src="images/mom2.png.jpg">
-    <img src="images/mom3.png.jpg">
-    <img src="images/mom4.png.jpg">
+    <div class="section-content">
+        <h2>Mama’s Glow ✨</h2>
+        <div class="gallery">
+            <img src="images/mom1.png.jpg">
+            <img src="images/mom2.png.jpg">
+            <img src="images/mom3.png.jpg">
+            <img src="images/mom4.png.jpg">
+        </div>
+    </div>
 </div>
 
 <div id="familyPics" class="section">
     <button class="exit-btn" onclick="playClick(); closeSection('familyPics')"></button>
-    <h2>The Best Team 💖</h2>
-    <img src="images/family1.jpg.jpg">
-    <img src="images/family2.jpg.jpg">
-    <img src="images/family3.jpg.jpg">
-    <img src="images/family4.jpg.jpg">
-    <img src="images/family5.jpg.jpg">
-    <img src="images/family6.jpg.jpg">
-    <img src="images/family7.jpg.jpg">
-    <img src="images/family8.jpg.jpg">
-    <img src="images/family9.jpg.jpg">
-    <img src="images/family10.jpg.jpg">
-    <img src="images/family11.jpg.jpg">
-    <img src="images/family12.jpg.jpg">
-    <img src="images/family13.jpg.jpg">
-    <img src="images/family14.jpg.jpg">
+    <div class="section-content">
+        <h2>The Best Team 💖</h2>
+        <div class="gallery">
+            <img src="images/family1.jpg.jpg">
+            <img src="images/family2.jpg.jpg">
+            <img src="images/family3.jpg.jpg">
+            <img src="images/family4.jpg.jpg">
+            <img src="images/family5.jpg.jpg">
+            <img src="images/family6.jpg.jpg">
+            <img src="images/family7.jpg.jpg">
+            <img src="images/family8.jpg.jpg">
+            <img src="images/family9.jpg.jpg">
+            <img src="images/family10.jpg.jpg">
+            <img src="images/family11.jpg.jpg">
+            <img src="images/family12.jpg.jpg">
+            <img src="images/family13.jpg.jpg">
+            <img src="images/family14.jpg.jpg">
+        </div>
+    </div>
 </div>
 
 <div id="letter" class="section">
     <button class="exit-btn" onclick="playClick(); closeSection('letter')"></button>
-    <h2>💌 My Heart for You</h2>
-    <p>
-        I just want you to know how much I love you. Thank you for all the sacrifices you’ve made for me and my sisters,<br>
-        you’ve given us so much, even when it wasn’t easy.<br>
-        I’m sorry for the times I’ve been stubborn or difficult,<br>
-        but I hope you know that no matter what, you will always be loved.<br>
-        You are the heart of our family, and I am so grateful for you every single day.<br>
-        Wishing you a day filled with love, happiness, and all the things that make you smile. You deserve the world, Mama.
-    </p>
+    <div class="section-content">
+        <h2>💌 My Heart for You</h2>
+        <p>
+            I just want you to know how much I love you. Thank you for all the sacrifices you’ve made for me and my sisters,<br>
+            you’ve given us so much, even when it wasn’t easy.<br>
+            I’m sorry for the times I’ve been stubborn or difficult,<br>
+            but I hope you know that no matter what, you will always be loved.<br>
+            You are the heart of our family, and I am so grateful for you every single day.<br>
+            Wishing you a day filled with love, happiness, and all the things that make you smile. You deserve the world, Mama.
+        </p>
+    </div>
 </div>
 
 <script>
-function playClick(){
-    const click = document.getElementById('clickSound');
-    click.currentTime = 0;
-    click.play();
-}
-
 function openSection(id){
-    document.getElementById('overlay').style.display='block';
     document.getElementById(id).style.display='block';
 }
-
 function closeSection(id){
     document.getElementById(id).style.display='none';
-    document.getElementById('overlay').style.display='none';
+}
+function playClick(){
+    const click=document.getElementById('clickSound');
+    click.currentTime=0;
+    click.play();
 }
 </script>
+
 </body>
 </html>
